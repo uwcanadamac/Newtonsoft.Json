@@ -230,8 +230,14 @@ namespace Newtonsoft.Json.Utilities
 
       if (initialValue is string)
       {
+//        if (targetType == typeof (Guid))
+//          return new Guid((string) initialValue);
+#region start SJL MOD, May 14, 2012, make the GUID handling exactly the same as FastJSON's so that items serialized between can function
         if (targetType == typeof (Guid))
-          return new Guid((string) initialValue);
+					
+					return new Guid(System.Convert.FromBase64String((string)initialValue)); //new Guid((string) initialValue);				
+#endregion
+				
         if (targetType == typeof (Uri))
           return new Uri((string) initialValue);
         if (targetType == typeof (TimeSpan))

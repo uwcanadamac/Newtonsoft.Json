@@ -372,7 +372,10 @@ namespace Newtonsoft.Json
     /// <returns>A JSON string representation of the <see cref="Guid"/>.</returns>
     public static string ToString(Guid value)
     {
-      return '"' + value.ToString("D", CultureInfo.InvariantCulture) + '"';
+		//return '"' + value.ToString("D", CultureInfo.InvariantCulture) + '"';
+#region start SJL MOD, May 14, 2012, make the GUID handling exactly the same as FastJSON's so that items serialized between can function
+			return '"' + System.Convert.ToBase64String(value.ToByteArray()) + '"';
+#endregion
     }
 
     /// <summary>
